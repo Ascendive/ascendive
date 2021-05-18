@@ -1,12 +1,12 @@
-import { FieldTypes } from './FieldTypes'
+import { FieldType } from './FieldType'
 import { CollationType } from '../collation/CollationType'
 
 export class FieldIdentifier {
-    fieldType: FieldTypes;
+    fieldType: FieldType;
     collationType: CollationType;
     playbookId: String;
 
-    constructor(fieldType: FieldTypes, playbookId: String, collationType: CollationType) {
+    constructor(fieldType: FieldType, playbookId: String, collationType: CollationType) {
         this.fieldType = fieldType;
         this.collationType = collationType;
         this.playbookId = playbookId;

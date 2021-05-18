@@ -1,3 +1,3 @@
-export enum FieldTypes {
+export enum FieldType {
     PlaceHolder = "test"
 }
