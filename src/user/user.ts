@@ -1,4 +1,5 @@
 export class User {
+    _key: String;
     displayName: String;
     email: String;
     isUserActive: Boolean;

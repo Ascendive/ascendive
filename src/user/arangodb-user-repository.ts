@@ -2,6 +2,7 @@ import { Maybe, List } from "typescript-monads";
 import { User } from "./user";
 import { UserRepository } from "./user-repository";
 import { Database, aql } from 'arangojs'
+import { ArrayCursor } from "arangojs/cursor";
 
 /*The ArangoDB implementation of the User Repository. It requires an
  * arangojs Database connection object. I have a feeling that the final
@@ -14,10 +15,13 @@ export class ArangodbUserRepository implements UserRepository {
     const db: Database;
     constructor(db: Database) {
         this.db = db
+        db.collection("users")
     }
-    saveUser(user: User): User {
-
-        throw new Error("Method not implemented.");
+    async saveUser(user: User): Promise<Maybe<User>> {
+        const cursor = await this.db.query(aql`INSERT ${user} INTO users RETURN NEW`) as ArrayCursor<User>
+        return cursor.next().then(function(value) {
+            return new Maybe<User>(value)
+        })
     }
     getUserByKey(key: String): Maybe<User> {
         throw new Error("Method not implemented.");
