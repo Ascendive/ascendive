@@ -12,19 +12,23 @@ import { ArrayCursor } from "arangojs/cursor";
  * resilient code base.*/
 export class ArangodbUserRepository implements UserRepository {
 
-    const db: Database;
+    db: Database;
     constructor(db: Database) {
         this.db = db
         db.collection("users")
     }
     async saveUser(user: User): Promise<Maybe<User>> {
         const cursor = await this.db.query(aql`INSERT ${user} INTO users RETURN NEW`) as ArrayCursor<User>
-        return cursor.next().then(function(value) {
+        return cursor.next().then((value) => {
+            console.log(`Saved ${value}  into database`)
             return new Maybe<User>(value)
-        })
+        }).catch(() => Maybe.none<User>())
     }
-    getUserByKey(key: String): Maybe<User> {
-        throw new Error("Method not implemented.");
+    async getUserByKey(key: String): Promise<Maybe<User>> {
+        const cursor = await this.db.query(aql`FOR user IN users FILTER user._key == ${key} RETURN user `) as ArrayCursor<User>
+        return cursor.next().then((value) => {
+            return new Maybe<User>(value)
+        }).catch(() => Maybe.none<User>())
     }
     getUsersByCompany(company: String): Maybe<List<User>> {
         throw new Error("Method not implemented.");

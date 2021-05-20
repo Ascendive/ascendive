@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Connect } from './arangodb/connection';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
+import { UserCard } from './components/user-card';
 
 const openGoog = () => {
   window.open("https://www.google.com")
@@ -14,6 +15,8 @@ function App() {
     <>
       <h1>Hello</h1>
       <ButtonComponent onClick={openGoog}>Cader</ButtonComponent>
+      <UserCard />
+
     </>
   );
 }
