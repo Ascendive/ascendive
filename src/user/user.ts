@@ -31,4 +31,9 @@ export class User {
         this.primaryWorkCity = primaryWorkCity;
         this.timeOfLastAction = timeOfLastAction;
     }
+
+}
+
+export function emptyUser(): User {
+    return new User("", "", false, 0, "", "", "", "", "");
 }

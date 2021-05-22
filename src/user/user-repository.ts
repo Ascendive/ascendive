@@ -10,6 +10,7 @@ export interface UserRepository {
     getUsersByActiveStatus(isActive: Boolean): Maybe<List<User>>
     getUsersByPrimaryWorkCity(city: String): Maybe<List<User>>
     getUsersByJobTitle(jobTitle: String): Maybe<List<User>>
-    getUsersByNamePartialMatch(name: String): Maybe<List<User>>
+    getUsersByNamePartialMatch(name: String): Promise<Maybe<List<User>>>
+    getAllUsers(): Promise<User[]>
 
 }

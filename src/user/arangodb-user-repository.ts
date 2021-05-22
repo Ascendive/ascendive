@@ -17,6 +17,13 @@ export class ArangodbUserRepository implements UserRepository {
         this.db = db
         db.collection("users")
     }
+    async getAllUsers(): Promise<User[]> {
+        const cursor = await this.db.query(aql`FOR user IN users RETURN user`) as ArrayCursor<User>
+        return cursor.all()
+    }
+    getUsersByNamePartialMatch(name: String): Promise<Maybe<List<User>>> {
+        throw new Error("Method not implemented.");
+    }
     async saveUser(user: User): Promise<Maybe<User>> {
         const cursor = await this.db.query(aql`INSERT ${user} INTO users RETURN NEW`) as ArrayCursor<User>
         return cursor.next().then((value) => {
@@ -27,6 +34,7 @@ export class ArangodbUserRepository implements UserRepository {
     async getUserByKey(key: String): Promise<Maybe<User>> {
         const cursor = await this.db.query(aql`FOR user IN users FILTER user._key == ${key} RETURN user `) as ArrayCursor<User>
         return cursor.next().then((value) => {
+            console.log(`hey fuckface`)
             return new Maybe<User>(value)
         }).catch(() => Maybe.none<User>())
     }
@@ -42,8 +50,13 @@ export class ArangodbUserRepository implements UserRepository {
     getUsersByJobTitle(jobTitle: String): Maybe<List<User>> {
         throw new Error("Method not implemented.");
     }
-    getUsersByNamePartialMatch(name: String): Maybe<List<User>> {
-        throw new Error("Method not implemented.");
-    }
+    // async getUsersByNamePartialMatch(name: String): Promise<Maybe<List<User>>> {
+    //     const cursor = await this.db.query(aql`FOR user IN users FILTER user.displayName LIKE ${name} RETURN user `) as ArrayCursor<User>
+    //     // const ok = cursor.all().then(j)
+
+    //     // return cursor.next().then((value) => {
+    //     //     return new Maybe<User>(value)
+    //     // }).catch(() => Maybe.none<User>())
+    // }
 
 }
