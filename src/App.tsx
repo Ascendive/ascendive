@@ -8,6 +8,7 @@ import { UserGrid } from './components/userGrid';
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { CreateUserComponent } from './user/createUserComponent';
 
+
 const openGoog = () => {
   window.open("https://www.google.com")
 }
@@ -20,8 +21,8 @@ function App(): JSX.Element {
       {/* <h1>Hello</h1> */}
       {/* <ButtonComponent onClick={openGoog}>Cader</ButtonComponent> */}
       {/* <UserCard userKey={"99837"} /> */}
-      <UserGrid />
-      <CreateUserComponent />
+      <UserGrid db={db} />
+      <CreateUserComponent db={db} />
     </>
   );
 }

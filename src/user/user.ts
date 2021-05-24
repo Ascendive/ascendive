@@ -34,6 +34,3 @@ export class User {
 
 }
 
-export function emptyUser(): User {
-    return new User("", "", false, 0, "", "", "", "", "");
-}
