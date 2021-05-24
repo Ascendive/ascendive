@@ -1,4 +1,5 @@
 export class User {
+    // _key: String;
     displayName: String;
     email: String;
     isUserActive: Boolean;
@@ -30,4 +31,6 @@ export class User {
         this.primaryWorkCity = primaryWorkCity;
         this.timeOfLastAction = timeOfLastAction;
     }
+
 }
+

@@ -2,6 +2,7 @@ import { Maybe, List } from "typescript-monads";
 import { User } from "./user";
 import { UserRepository } from "./user-repository";
 import { Database, aql } from 'arangojs'
+import { ArrayCursor } from "arangojs/cursor";
 
 /*The ArangoDB implementation of the User Repository. It requires an
  * arangojs Database connection object. I have a feeling that the final
@@ -11,16 +12,31 @@ import { Database, aql } from 'arangojs'
  * resilient code base.*/
 export class ArangodbUserRepository implements UserRepository {
 
-    const db: Database;
+    db: Database;
     constructor(db: Database) {
         this.db = db
+        db.collection("users")
     }
-    saveUser(user: User): User {
-
+    async getAllUsers(): Promise<User[]> {
+        const cursor = await this.db.query(aql`FOR user IN users RETURN user`) as ArrayCursor<User>
+        return cursor.all()
+    }
+    getUsersByNamePartialMatch(name: String): Promise<Maybe<List<User>>> {
         throw new Error("Method not implemented.");
     }
-    getUserByKey(key: String): Maybe<User> {
-        throw new Error("Method not implemented.");
+    async saveUser(user: User): Promise<Maybe<User>> {
+        const cursor = await this.db.query(aql`INSERT ${user} INTO users RETURN NEW`) as ArrayCursor<User>
+        return cursor.next().then((value) => {
+            console.log(`Saved ${value}  into database`)
+            return new Maybe<User>(value)
+        }).catch(() => Maybe.none<User>())
+    }
+    async getUserByKey(key: String): Promise<Maybe<User>> {
+        const cursor = await this.db.query(aql`FOR user IN users FILTER user._key == ${key} RETURN user `) as ArrayCursor<User>
+        return cursor.next().then((value) => {
+            console.log(`hey fuckface`)
+            return new Maybe<User>(value)
+        }).catch(() => Maybe.none<User>())
     }
     getUsersByCompany(company: String): Maybe<List<User>> {
         throw new Error("Method not implemented.");
@@ -34,8 +50,13 @@ export class ArangodbUserRepository implements UserRepository {
     getUsersByJobTitle(jobTitle: String): Maybe<List<User>> {
         throw new Error("Method not implemented.");
     }
-    getUsersByNamePartialMatch(name: String): Maybe<List<User>> {
-        throw new Error("Method not implemented.");
-    }
+    // async getUsersByNamePartialMatch(name: String): Promise<Maybe<List<User>>> {
+    //     const cursor = await this.db.query(aql`FOR user IN users FILTER user.displayName LIKE ${name} RETURN user `) as ArrayCursor<User>
+    //     // const ok = cursor.all().then(j)
+
+    //     // return cursor.next().then((value) => {
+    //     //     return new Maybe<User>(value)
+    //     // }).catch(() => Maybe.none<User>())
+    // }
 
 }
