@@ -17,7 +17,7 @@ export function UserGrid(props: { db: Database; }): JSX.Element {
         }
 
         getUser();
-    }, []);
+    }, [props.db]);
     return (
         <>
             {/* <div className='control-pane'>
