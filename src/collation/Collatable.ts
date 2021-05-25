@@ -12,6 +12,6 @@ export interface Collatable {
     playbookId: String;
 }
 export interface ActionableCollatable extends Collatable {
-    assignedToUserId: String;
+    assignedTo: String;
     status: String;
 }

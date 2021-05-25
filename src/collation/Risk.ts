@@ -3,6 +3,7 @@ import { CollationType } from "./CollationType";
 
 export class Risk implements ActionableCollatable {
     assignedToUserId: String;
+    assignedTo: String;
     status: String;
     collationType: CollationType
     description: String;
