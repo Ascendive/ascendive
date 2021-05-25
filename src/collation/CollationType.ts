@@ -1,3 +1,4 @@
 export const enum CollationType {
-    PlaceHolder = "test"
+    Risk = 'risk',
+    Action = 'action'
 }
