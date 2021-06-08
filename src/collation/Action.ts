@@ -1,7 +1,7 @@
 import { ActionableCollatable } from "./Collatable";
 import { CollationType } from "./CollationType";
 
-export class Action implements ActionableCollatable {
+export class Action {
 
     collationType: CollationType;
     actualFinish: String;
@@ -106,5 +106,6 @@ export class Action implements ActionableCollatable {
         this.dateSubmitted = dateSubmitted;
         this.collationOriginalKey = collationOriginalKey;
     }
+    // playbookId: String;
 
 }
