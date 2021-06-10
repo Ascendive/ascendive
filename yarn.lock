@@ -1752,6 +1752,17 @@
   dependencies:
     "@syncfusion/ej2-base" "~19.1.63"
 
+"@syncfusion/ej2-calendars@19.1.66":
+  version "19.1.66"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-calendars/-/ej2-calendars-19.1.66.tgz#093d5f8cab958822ac542789aaba36a1663a075c"
+  integrity sha512-0OpFtSJ10ilXF19JU8dJrj9n229TA8ZfEXzeQyeS2ejTa1NoUBCsU/TTgkoT2UP1s6mxWty5ojtsLrHsESC9pQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
+    "@syncfusion/ej2-buttons" "~19.1.63"
+    "@syncfusion/ej2-inputs" "~19.1.66"
+    "@syncfusion/ej2-lists" "~19.1.65"
+    "@syncfusion/ej2-popups" "~19.1.66"
+
 "@syncfusion/ej2-calendars@~19.1.63":
   version "19.1.63"
   resolved "https://registry.npmjs.org/@syncfusion/ej2-calendars/-/ej2-calendars-19.1.63.tgz"
@@ -1894,12 +1905,31 @@
     "@syncfusion/ej2-popups" "~19.1.63"
     "@syncfusion/ej2-splitbuttons" "~19.1.63"
 
+"@syncfusion/ej2-inputs@~19.1.66":
+  version "19.1.67"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-inputs/-/ej2-inputs-19.1.67.tgz#1b72a1cb4b97e8066961e97a8af42401e2395a7f"
+  integrity sha512-w4EXzgx3i5bzKjtnYp/PrmjpuYquHedTc+j0EYfA1vj6J17a8w8wNUP03Uqp2YFnv44lNoEopgwPytZO0Ro10g==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
+    "@syncfusion/ej2-buttons" "~19.1.63"
+    "@syncfusion/ej2-popups" "~19.1.67"
+    "@syncfusion/ej2-splitbuttons" "~19.1.63"
+
 "@syncfusion/ej2-lists@~19.1.63":
   version "19.1.63"
   resolved "https://registry.npmjs.org/@syncfusion/ej2-lists/-/ej2-lists-19.1.63.tgz"
   integrity sha512-ALATWLsCObNZg95kswuO1L/LOYprVPftlddtHqz9/UF8W6/QzpUsU2VmJvRJI4Dt6i/+duNuBoX32PklIf/Raw==
   dependencies:
     "@syncfusion/ej2-base" "~19.1.63"
+    "@syncfusion/ej2-buttons" "~19.1.63"
+    "@syncfusion/ej2-data" "~19.1.63"
+
+"@syncfusion/ej2-lists@~19.1.65":
+  version "19.1.65"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-lists/-/ej2-lists-19.1.65.tgz#825b5dfb6119a4bbce2d83a7d2f76137ec209c8e"
+  integrity sha512-XBBRbP5JoHGgOkP29PMGzSWxKmGIZWDvLqG7ZDmXYYrWF+KXO6tJvQxSuiwOKeKThi0un5TPIZvBLDg0f/XUxg==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
     "@syncfusion/ej2-buttons" "~19.1.63"
     "@syncfusion/ej2-data" "~19.1.63"
 
@@ -1938,6 +1968,14 @@
     "@syncfusion/ej2-base" "~19.1.64"
     "@syncfusion/ej2-buttons" "~19.1.63"
 
+"@syncfusion/ej2-popups@~19.1.66", "@syncfusion/ej2-popups@~19.1.67":
+  version "19.1.67"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-19.1.67.tgz#e14fb95dfaf17b7754dd3a16d6fc46dd7e4bbf80"
+  integrity sha512-spIv/DE8W9a2hNu6pn0so7zPPLwWGo1nZinPmhvq0MYw+dXOqYKPNLTnKUYI0UWTq7BHOSUZpBiZl2RwgQoldw==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
+    "@syncfusion/ej2-buttons" "~19.1.63"
+
 "@syncfusion/ej2-react-base@~19.1.63":
   version "19.1.63"
   resolved "https://registry.npmjs.org/@syncfusion/ej2-react-base/-/ej2-react-base-19.1.63.tgz"
@@ -1952,6 +1990,13 @@
   dependencies:
     "@syncfusion/ej2-base" "~19.1.64"
 
+"@syncfusion/ej2-react-base@~19.1.65":
+  version "19.1.67"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-base/-/ej2-react-base-19.1.67.tgz#7a07c0039f47f776048791ca9b211593d4b85303"
+  integrity sha512-4fioCApvlm1YhhB1RxfnyRRbgl9nsFruZJqCFjOT9XLcBDwq2uDlY8EKY0E9r0AtoSLP8HEVa3rgR0kMaov2hA==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
+
 "@syncfusion/ej2-react-buttons@^19.1.63":
   version "19.1.63"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-buttons/-/ej2-react-buttons-19.1.63.tgz#a6d3859dd5c5424353060f2fde14974feed686d6"
@@ -1960,6 +2005,15 @@
     "@syncfusion/ej2-base" "~19.1.63"
     "@syncfusion/ej2-buttons" "19.1.63"
     "@syncfusion/ej2-react-base" "~19.1.63"
+
+"@syncfusion/ej2-react-calendars@^19.1.66":
+  version "19.1.66"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-calendars/-/ej2-react-calendars-19.1.66.tgz#4b18794abaa40fc8ea40e7eaf6fbc3c27b9e0b67"
+  integrity sha512-MmujC3P/VWcUHpDf/v+l8tNoK+ZQAhlR8CCUC4oFJw/XMpcG+PTltYqr3nN6JVRTLPbX3h1giDLeEIYL9W3Z9g==
+  dependencies:
+    "@syncfusion/ej2-base" "~19.1.64"
+    "@syncfusion/ej2-calendars" "19.1.66"
+    "@syncfusion/ej2-react-base" "~19.1.65"
 
 "@syncfusion/ej2-react-dropdowns@^19.1.64":
   version "19.1.64"
@@ -2253,10 +2307,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.0":
+"@types/react@*":
   version "17.0.5"
   resolved "https://registry.npmjs.org/@types/react/-/react-17.0.5.tgz"
   integrity sha512-bj4biDB9ZJmGAYTWSKJly6bMr4BLUiBrx9ujiJEoP9XIDY9CTaPGxE5QWN/1WjpPLzYF7/jRNnV2nNxNe970sw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^17.0.11":
+  version "17.0.11"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.11.tgz#67fcd0ddbf5a0b083a0f94e926c7d63f3b836451"
+  integrity sha512-yFRQbD+whVonItSk7ZzP/L+gPTJVBkL/7shLEF+i9GC/1cV3JmUxEQz6+9ylhUpWSDuqo1N9qEvqS6vTj4USUA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3770,7 +3833,7 @@ cliui@^6.0.0:
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
 
-clsx@^1.0.4:
+clsx@^1.0.4, clsx@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -9509,7 +9572,7 @@ prompts@2.4.0, prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9843,6 +9906,14 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-tabs@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-3.2.2.tgz#07bdc3cdb17bdffedd02627f32a93cd4b3d6e4d0"
+  integrity sha512-/o52eGKxFHRa+ssuTEgSM8qORnV4+k7ibW+aNQzKe+5gifeVz8nLxCrsI9xdRhfb0wCLdgIambIpb1qCxaMN+A==
+  dependencies:
+    clsx "^1.1.0"
+    prop-types "^15.5.0"
 
 react-transition-group@^4.4.0:
   version "4.4.1"

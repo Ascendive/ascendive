@@ -8,29 +8,14 @@ import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 function App(): JSX.Element {
   const db = Connect();
   const history = createBrowserHistory();
   /* db.query() */
   return (
-<EditAction></EditAction>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <DatePickerComponent value={new Date()} />
   );
 }
 

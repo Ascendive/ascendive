@@ -1,5 +1,13 @@
-import { FieldType } from './FieldType';
+import { FieldType } from "./FieldType";
 export class Field {
-    fieldType: FieldType;
-    constructor(fieldType: FieldType) { this.fieldType = fieldType }
+
+  fieldType: FieldType;
+  fieldControl!: any;
+  id!: any;
+  title!: any;
+
+  constructor(fieldType: FieldType) {
+    this.fieldType = fieldType;
+  }
+  
 }
