@@ -19,4 +19,10 @@ export class CollationPrototype {
     originalKey!: string;
     tabArray!: CollationTab[];
 
-}
+    constructor(collationTypeTitle: string, tabArray: CollationTab[]){
+        this.collationTypeTitle = collationTypeTitle;
+        this.tabArray = tabArray;
+ }
+
+     }
+
