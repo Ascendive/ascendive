@@ -1,5 +1,5 @@
 import { Connect } from '../connection';
-import { Database, aql } from 'arangOjs'
+import { Database, aql } from 'arangojs'
 import { ArrayCursor } from "arangojs/cursor";
 
 export class FormRepository {
@@ -8,7 +8,7 @@ export class FormRepository {
         this.db = db;
     }
 
-    async function getFormByUuid(uuid: string): Promise<void> {
-    const cursor = await db.query(aql`FOR `)
+    async  getFormByUuid(uuid: string): Promise<void> {
+    const cursor = await this.db.query(aql`FOR `)
 }
 }

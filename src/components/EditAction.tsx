@@ -6,7 +6,8 @@ import { Connect } from '../arangodb/connection';
 
 
 function EditAction(): JSX.Element {
-
+ const [formOpen, setFormOpen] = useState(false);
+    const toggleFormOpen = () => setFormOpen(!formOpen);
     //When the form is open, we return the editor form JSX element.
     if (formOpen) {
         return (

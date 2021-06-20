@@ -1,20 +1,28 @@
+import { CollationTab } from "./CollationTab";
 
 export class CollationPrototype {
 
-    collationTypeTitle!: String;
-    collationTypePlaybookKey!: String;
-    collationTypePlaybookTitle!: String;
-    collationTypeDefaultStatus!: String;
-    collationTypeCompletedStatus!: String;
-    collationTypeDefaultDaysToComplete!: String;
-    collationTypeDefaultVersions!: String;
+    collationTypeTitle!: string;
+    collationTypePlaybookKey!: string;
+    collationTypePlaybookTitle!: string;
+    collationTypeDefaultStatus!: string;
+    collationTypeCompletedStatus!: string;
+    collationTypeDefaultDaysToComplete!: string;
+    collationTypeDefaultVersions!: string;
     collationTypeIsActive!: Boolean;
     collationTypeIsInternal!: Boolean;
     collationTypeVelocityWeight!: Number;
-    createdBy!: String;
+    createdBy!: string;
     timeStamp!: Number;
     currentVersion!: Boolean;
     versionNumber!: Number;
-    originalKey!: String;
+    originalKey!: string;
+    tabArray!: CollationTab[];
 
-}
+    constructor(collationTypeTitle: string, tabArray: CollationTab[]){
+        this.collationTypeTitle = collationTypeTitle;
+        this.tabArray = tabArray;
+ }
+
+     }
+
