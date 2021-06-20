@@ -1,11 +1,9 @@
 import React from "react";
 import "./App.css";
 import {Collation} from "./collation/CollationJsxFactory";
-import { Connect } from "./arangodb/connection";
 import "reactjs-popup/dist/index.css";
 
 function App(): JSX.Element {
-  const db = Connect();
   const data: any = {
     field1: { value: 4 },
     field2: { value: 1 },

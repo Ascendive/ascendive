@@ -5,7 +5,7 @@ import { NumericTextBoxComponent } from '@syncfusion/ej2-react-inputs';
 
 export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>): JSX.Element {
     const handleDatePickerChange = (event: any) => {
-        let date: number = event.value.getTime()/1000;
+        let date: number = event.value.getTime();
         setData((prevData: any) => ({ ...prevData, [field.id]: { "value": date } }))
     }
     let initialDate = new Date(data.value)
@@ -34,7 +34,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any, setData: R
         setData((prevData: any) => ({ ...prevData, [field.id]: { "value": event.value } }))
     }
     let component;
-    if (field.controlOptions === undefined) {
+    if (field.controlOptions === undefined || field.controlOptions === null) {
         component = <NumericTextBoxComponent
             id={field.id}
             value={data.value}
