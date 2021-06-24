@@ -56,8 +56,12 @@ function Field(props: any): JSX.Element {
       return controls.DatePickerComponentFactory(props.field, props.data, props.setData);
     case "NumericTextBox":
       return controls.NumericTextBoxComponentFactory(props.field, props.data, props.setData);
+    case "TextBox":
+          return controls.TextBoxComponentFactory(props.field, props.data, props.setData);
     case "ToggleSwitch":
       return controls.ToggleSwitchButtonComponentFactory(props.field, props.data, props.setData);
+    case "DropdownList":
+          return controls.DropDownListComponentFactory(props.field, props.data, props.setData);
     default:
       return <></>;
   }
