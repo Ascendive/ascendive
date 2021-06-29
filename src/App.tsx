@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import { Collation } from "./collation/CollationJsxFactory";
 import "reactjs-popup/dist/index.css";
+import { FieldRepository } from './arangodb/repository/FieldRepository';
+import { Connect } from "./arangodb/connection"
 
 function App(): JSX.Element {
   const data: any = {
@@ -29,17 +31,21 @@ function App(): JSX.Element {
           { id: "field1", title: "Cader", control: "NumericTextBox", controlOptions: { step: 2, range: { min: 0, max: 20 } } },
           { id: "field2", title: "Pants", control: "NumericTextBox", controlOptions: { step: 2 } }
         ]
-      },
-      {
+      }, {
         title: "Form Title 2", fieldArray: [
           { id: "shoes", title: "Shoes", control: "NumericTextBox", controlOptions: { step: 0.1 } },
           { id: "date", title: "Start Date", control: "DatePicker", controlOptions: { userDateFormat: "yyyy-MMM-dd", userLocalizedFieldTitle: "Hello" } },
           { id: "date2", title: "End Date", control: "DatePicker", controlOptions: { userDateFormat: "dd-MMM-yyyy", userLocalizedFieldTitle: "Hello" } },
           { id: "button", title: "Enable warning", control: "ToggleSwitch", controlOptions: {} },
-          { id: "button2", title: "Less important", control: "ToggleSwitch", controlOptions: {} }]
+          { id: "button2", title: "Less important", control: "ToggleSwitch", controlOptions: {} }
+        ]
       }
     ]
   };
+    let db = Connect();
+    const repo = new FieldRepository(db)
+    let ok = repo.getFieldsByCollationUuid("fcb2b831-ac4f-45f5-9cf1-dc23b7c87f5c")
+    console.log(ok)
   return (
     <Collation collationType={collationType} data={data} />
   );
