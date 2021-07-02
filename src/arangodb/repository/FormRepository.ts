@@ -1,6 +1,4 @@
-import { Connect } from '../connection';
 import { Database, aql } from 'arangojs'
-import { ArrayCursor } from "arangojs/cursor";
 
 export class FormRepository {
     db: Database;
@@ -8,7 +6,11 @@ export class FormRepository {
         this.db = db;
     }
 
-    async  getFormByUuid(uuid: string): Promise<void> {
-    const cursor = await this.db.query(aql`FOR `)
-}
+    async getFormsByCollationTypeUuid(uuid: string): Promise<any[]> {
+        const cursor = await this.db.query(aql` let collationType = ${uuid}
+                                                FOR f IN Forms
+                                                FILTER (f.reference.collationType.key == collationType  && f.version.isCurrent)
+                                                RETURN f.form `)
+        return cursor.all();
+    }
 }
