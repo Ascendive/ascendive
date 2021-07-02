@@ -11,6 +11,6 @@ export class FormRepository {
                                                 FOR f IN Forms
                                                 FILTER (f.reference.collationType.key == collationType  && f.version.isCurrent)
                                                 RETURN f.form `)
-        return cursor.all();
+        return cursor.next();
     }
 }

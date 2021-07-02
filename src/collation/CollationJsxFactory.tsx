@@ -2,6 +2,11 @@ import React from "react";
 import * as controls from "./ControlJsxFactory";
 import { useState } from "react";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { useEffect } from "react";
+import { FieldRepository } from "../arangodb/repository/FieldRepository";
+import { CollationRepository } from "../arangodb/repository/CollationRepository";
+import { CollationTypeRepository } from "../arangodb/repository/CollationTypeRepository";
+import { FormRepository } from "../arangodb/repository/FormRepository";
 /** @Author Cader Hancock
    The CollationJsxFactory decomposes the CollationPrototype assembled by the
    CollationDecorator. It reduces each CollationPrototype into it's subsequent
@@ -11,11 +16,35 @@ import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 //so that we can set the controls to be read only.
 export function Collation(props: any): JSX.Element {
 
+  const [fields, setFields] = useState<any[]>()
+  const [collationData, setCollationData] = useState()
+  const [collationType, setCollationType] = useState()
+  useEffect(() => {
+    async function dbPull(uuid: String): Promise<void> {
+        // Repo setup
+      const fieldRepo = new FieldRepository(props.db)
+      const collationRepo = new CollationRepository(props.db)
+      const collationTypeRepo = new CollationTypeRepository(props.db)
+      const formRepo = new FormRepository(props.db)
+        //Db queries
+      const fields = await fieldRepo.getFieldsByCollationUuid(uuid)
+      const collationData = await collationRepo.getActiveCollationByCollationUuid(uuid)
+      const collationType = await collationTypeRepo.getActiveCollationTypeByCollationTypeUuid(
+        collationData.reference.collationType.key)
+      const form = await formRepo.getFormsByCollationTypeUuid(
+          collationData.reference.collationType.key)
+
+      setFields(fields)
+      setCollationType(collationType)
+      setCollationData(collationData)
+        console.log(form)
+    }
+    dbPull(props.collationKey)
+  }, [])
   const [data, setData] = useState(props.data);
   const [readOnly, setReadOnly] = useState(true);
   const handleSave = () => {
-    console.log(JSON.stringify(data))
-      toggleReadOnly();
+    toggleReadOnly();
   }
   const toggleReadOnly = () => setReadOnly(!readOnly);
 
@@ -26,7 +55,7 @@ export function Collation(props: any): JSX.Element {
         {
           props.collationType.formArray.map(
             (form: any): JSX.Element => {
-              return <Form form={form} data={data} setData={setData} readOnly={readOnly}/>
+              return <Form form={form} data={data} setData={setData} readOnly={readOnly} />
             }
           )
         }
@@ -47,7 +76,7 @@ function Form(props: any): JSX.Element {
               field={field}
               data={props.data[field.id]}
               setData={props.setData}
-              readOnly={props.readOnly}/>
+              readOnly={props.readOnly} />
           }
         )
       }
@@ -62,11 +91,11 @@ function Field(props: any): JSX.Element {
     case "NumericTextBox":
       return controls.NumericTextBoxComponentFactory(props.field, props.data, props.setData, props.readOnly);
     case "TextBox":
-          return controls.TextBoxComponentFactory(props.field, props.data, props.setData, props.readOnly);
+      return controls.TextBoxComponentFactory(props.field, props.data, props.setData, props.readOnly);
     case "ToggleSwitch":
       return controls.ToggleSwitchButtonComponentFactory(props.field, props.data, props.setData, props.readOnly);
     case "DropdownList":
-          return controls.DropDownListComponentFactory(props.field, props.data, props.setData, props.readOnly);
+      return controls.DropDownListComponentFactory(props.field, props.data, props.setData, props.readOnly);
     default:
       return <></>;
   }
