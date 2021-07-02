@@ -4,8 +4,27 @@ import { Collation } from "./collation/CollationJsxFactory";
 import "reactjs-popup/dist/index.css";
 import { FieldRepository } from './arangodb/repository/FieldRepository';
 import { Connect } from "./arangodb/connection"
+import { useState } from "react";
+import { useEffect } from "react";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
 function App(): JSX.Element {
+  let collationKey = "fcb2b831-ac4f-45f5-9cf1-dc23b7c87f5c"
+  const db = Connect()
+    const button = () => {
+        lolk(!k)
+        console.log(fields) }
+    const [k, lolk] = useState(false)
+  const [fields, setFields] = useState<any[]>()
+  useEffect(() => {
+    async function dbPull(uuid: String): Promise<void> {
+      const repo = new FieldRepository(db)
+        const fields = await repo.getFieldsByCollationUuid(uuid)
+        console.log(fields)
+      setFields(fields)
+    }
+      dbPull(collationKey)
+  }, [])
   const data: any = {
     drop: { value: "NOT VALID" },
     drop2: { value: "two" },
@@ -19,8 +38,7 @@ function App(): JSX.Element {
     text: { value: "Hello" },
     text2: { value: "Hello" }
   };
-  let collationType =
-  {
+  let collationType = {
     id: "thisisanid", title: "Collation Title", formArray: [
       {
         title: "Form Title", fieldArray: [
@@ -42,12 +60,12 @@ function App(): JSX.Element {
       }
     ]
   };
-    let db = Connect();
-    const repo = new FieldRepository(db)
-    let ok = repo.getFieldsByCollationUuid("fcb2b831-ac4f-45f5-9cf1-dc23b7c87f5c")
-    console.log(ok)
+    console.log(fields)
   return (
+      <>
     <Collation collationType={collationType} data={data} />
+    <ButtonComponent onClick={button}>{k}</ButtonComponent>
+      </>
   );
 }
 export default App;
