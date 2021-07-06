@@ -4,10 +4,10 @@ import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { NumericTextBoxComponent, TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
-export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean): JSX.Element {
+export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleTextBoxChange = (event: any) => {
         setData((prevData: any) =>
-            ({ ...prevData, [field.id]: { "value": event.value } }))
+            ({ ...prevData, [field.field]: { "value": event.value } }))
     }
     return (
         <>
@@ -15,43 +15,43 @@ export function TextBoxComponentFactory(field: any, data: any, setData: React.Di
                 placeholder={field.title}
                 floatLabelType="Auto"
                 multiline={field.controlOptions.multiline}
-                value={data.value}
+                value={data[index].value}
                 change={e => handleTextBoxChange(e)} />
         </>
     )
 }
-export function DropDownListComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean): JSX.Element {
+export function DropDownListComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleDropDownChange = (event: any) =>
         setData((prevData: any) =>
-            ({ ...prevData, [field.id]: { "value": event.value } }))
+            ({ ...prevData, [field.field]: { "value": event.value } }))
 
     if (!field.controlOptions.dataSource.includes(data.value)) data.value = null
 
     return (
         <DropDownListComponent
-            id={field.id}
+            id={field.field}
             dataSource={field.controlOptions.dataSource}
-            value={data.value}
+            value={data[index].value}
             change={e => handleDropDownChange(e)}
             floatLabelType="Auto"
             placeholder={field.controlOptions.placeholder}
             disabled={true} />
     )
 }
-export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean): JSX.Element {
+export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleDatePickerChange = (event: any) => {
         let date: number = event.value != null ? event.value.getTime() : null;
-        setData((prevData: any) => ({ ...prevData, [field.id]: { "value": date } }))
+        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": date } }))
     }
-    let initialDate = (data.value != null && data.value !== undefined) ? new Date(data.value) : undefined;
+    let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value) : undefined;
     return (
         <DatePickerComponent
-            id={field.id}
+            id={field.field}
             value={initialDate}
             change={handleDatePickerChange}
-            format={field.controlOptions.userDateFormat}
+            format={field.controlOptions === undefined ? "yyyy-MM-dd" : field.controlOptions.userDateFormat}
             floatLabelType="Auto"
-            placeholder={field.controlOptions.userLocalizedFieldTitle} />
+        />
     )
 }
 /**
@@ -61,23 +61,23 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
    step: This field control option supplies the default step in the displayed number.
    range: This field control option is an object composed of 2 numbers: min and max.
 */
-export function NumericTextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean): JSX.Element {
+export function NumericTextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
 
     const handleNumericTextBoxChange = (event: any) => {
-        setData((prevData: any) => ({ ...prevData, [field.id]: { "value": event.value } }))
+        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": event.value } }))
     }
     let component;
     if (field.controlOptions === undefined || field.controlOptions === null) {
         component = <NumericTextBoxComponent
-            id={field.id}
-            value={data.value}
+            id={field.field}
+            value={data[index].value}
             floatLabelType="Auto"
             placeholder={field.title}
             change={handleNumericTextBoxChange} />
     } else if ("step" in field.controlOptions && "range" in field.controlOptions) {
         component = <NumericTextBoxComponent
-            id={field.id}
-            value={data.value}
+            id={field.field}
+            value={data[index].value}
             floatLabelType="Auto"
             placeholder={field.title}
             change={handleNumericTextBoxChange}
@@ -86,16 +86,16 @@ export function NumericTextBoxComponentFactory(field: any, data: any, setData: R
             max={field.controlOptions.range.max} />
     } else if ("step" in field.controlOptions) {
         component = <NumericTextBoxComponent
-            id={field.id}
-            value={data.value}
+            id={field.field}
+            value={data[index].value}
             floatLabelType="Auto"
             placeholder={field.title}
             change={handleNumericTextBoxChange}
             step={field.controlOptions.step} />
     } else if ("range" in field.controlOptions) {
         component = <NumericTextBoxComponent
-            id={field.id}
-            value={data.value}
+            id={field.field}
+            value={data[index].value}
             floatLabelType="Auto"
             placeholder={field.title}
             change={handleNumericTextBoxChange}
@@ -104,14 +104,14 @@ export function NumericTextBoxComponentFactory(field: any, data: any, setData: R
     }
     return (<> {component} </>)
 }
-export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean): JSX.Element {
+export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleToggleSwitchButtonChange = (event: any) => {
-        setData((prevData: any) => ({ ...prevData, [field.id]: { "value": event.checked } }))
+        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": event.checked } }))
     }
     return (
         <>
-            <label className="e-label-top" htmlFor={field.id}>{field.title}</label>
-            <SwitchComponent checked={data.value} change={handleToggleSwitchButtonChange} />
+            <label className="e-label-top" htmlFor={field.field}>{field.title}</label>
+            <SwitchComponent checked={data[index].value} change={handleToggleSwitchButtonChange} />
             <br />
         </>
     )

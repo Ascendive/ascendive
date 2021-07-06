@@ -15,87 +15,147 @@ import { FormRepository } from "../arangodb/repository/FormRepository";
 //TODO add a flag to pass down the state of the edit function
 //so that we can set the controls to be read only.
 export function Collation(props: any): JSX.Element {
-
-  const [fields, setFields] = useState<any[]>()
-  const [collationData, setCollationData] = useState()
-  const [collationType, setCollationType] = useState()
+  const [fieldData, setFieldData] = useState<any | null>(null);
+  const [collationData, setCollationData] = useState();
+  const [collationType, setCollationType] = useState({ title: "" });
+  const [form, setForm] = useState();
+  const [wegood, setWegood] = useState(false);
   useEffect(() => {
     async function dbPull(uuid: String): Promise<void> {
-        // Repo setup
-      const fieldRepo = new FieldRepository(props.db)
-      const collationRepo = new CollationRepository(props.db)
-      const collationTypeRepo = new CollationTypeRepository(props.db)
-      const formRepo = new FormRepository(props.db)
-        //Db queries
-      const fields = await fieldRepo.getFieldsByCollationUuid(uuid)
-      const collationData = await collationRepo.getActiveCollationByCollationUuid(uuid)
-      const collationType = await collationTypeRepo.getActiveCollationTypeByCollationTypeUuid(
-        collationData.reference.collationType.key)
+      // Repo setup
+      const fieldRepo = new FieldRepository(props.db);
+      const collationRepo = new CollationRepository(props.db);
+      const collationTypeRepo = new CollationTypeRepository(props.db);
+      const formRepo = new FormRepository(props.db);
+      //Db queries
+      const fields = await fieldRepo.getFieldsByCollationUuid(uuid);
+      const collationData =
+        await collationRepo.getActiveCollationByCollationUuid(uuid);
+      const collationType =
+        await collationTypeRepo.getActiveCollationTypeByCollationTypeUuid(
+          collationData.reference.collationType.key
+        );
       const form = await formRepo.getFormsByCollationTypeUuid(
-          collationData.reference.collationType.key)
+        collationData.reference.collationType.key
+      );
 
-      setFields(fields)
-      setCollationType(collationType)
-      setCollationData(collationData)
-        console.log(form)
+      setFieldData(fields);
+      setCollationType(collationType);
+      setCollationData(collationData);
+      setForm(form);
+      setWegood(!wegood);
+
+      /* console.log(JSON.stringify(fields)); */
+      /* console.log(collationType); */
+      /* console.log(collationData); */
     }
-    dbPull(props.collationKey)
-  }, [])
-  const [data, setData] = useState(props.data);
+    dbPull(props.collationKey);
+  }, []);
   const [readOnly, setReadOnly] = useState(true);
   const handleSave = () => {
     toggleReadOnly();
-  }
+  };
   const toggleReadOnly = () => setReadOnly(!readOnly);
 
-  return (
-    <>
-      <h1>{props.collationType.title}</h1>
-      <div className={props.collationType.Title}>
-        {
-          props.collationType.formArray.map(
-            (form: any): JSX.Element => {
-              return <Form form={form} data={data} setData={setData} readOnly={readOnly} />
-            }
-          )
-        }
-      </div>
-      <ButtonComponent onClick={handleSave}>{readOnly ? "Edit" : "Save"}</ButtonComponent>
-    </>
-  )
+  if (wegood)
+    return (
+      <>
+        <h1>{collationType.title}</h1>
+        {fieldData.map((field: any, i: number, array: any): JSX.Element => {
+          return (
+              <>
+              <p>{field.field}</p>
+            <Field
+              field={field}
+              control={field.control.type}
+              index={i}
+              data={array}
+              setData={setFieldData}
+              readOnly={readOnly}
+            />
+              </>
+          );
+        })}
+        <ButtonComponent onClick={handleSave}>
+          {readOnly ? "Edit" : "Save"}
+        </ButtonComponent>
+      </>
+    );
+  return <></>;
 }
 
 function Form(props: any): JSX.Element {
   return (
     <>
       <h2>{props.form.title}</h2>
-      {
-        props.form.fieldArray.map(
+      {/* {
+          props.form.fieldArray.map(
           (field: any) => {
-            return <Field
-              field={field}
-              data={props.data[field.id]}
-              setData={props.setData}
-              readOnly={props.readOnly} />
+          return <Field
+          field={field}
+          data={props.data[field.id]}
+          setData={props.setData}
+          readOnly={props.readOnly} />
           }
-        )
-      }
+          )
+          } */}
+      {props.fields.map((field: any, index: number, array: any[]) => {
+        return (
+          <Field
+            index={index}
+            control={field.control.type}
+            data={array}
+            readOnly={props.readOnly}
+            setData={props.setData}
+          />
+        );
+      })}
     </>
   );
 }
 
 function Field(props: any): JSX.Element {
-  switch (props.field.control) {
+  switch (props.control) {
     case "DatePicker":
-      return controls.DatePickerComponentFactory(props.field, props.data, props.setData, props.readOnly);
+      return controls.DatePickerComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index
+      );
     case "NumericTextBox":
-      return controls.NumericTextBoxComponentFactory(props.field, props.data, props.setData, props.readOnly);
-    case "TextBox":
-      return controls.TextBoxComponentFactory(props.field, props.data, props.setData, props.readOnly);
+      return controls.NumericTextBoxComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index
+      );
+    /* case "TextBox":
+*   return controls.TextBoxComponentFactory(
+*     props.field,
+*     props.data,
+*     props.setData,
+*     props.readOnly,
+*     props.index
+*   ); */
     case "ToggleSwitch":
-      return controls.ToggleSwitchButtonComponentFactory(props.field, props.data, props.setData, props.readOnly);
-    case "DropdownList":
-      return controls.DropDownListComponentFactory(props.field, props.data, props.setData, props.readOnly);
+      return controls.ToggleSwitchButtonComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index
+      );
+    /* case "DropdownList":
+*   return controls.DropDownListComponentFactory(
+*     props.field,
+*     props.data,
+*     props.setData,
+*     props.readOnly,
+*     props.index
+*   ); */
     default:
       return <></>;
   }
