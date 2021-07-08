@@ -6,14 +6,13 @@ export class VersionRepository {
         this.db = db;
     }
 
-    async getCurrentVersion(collection: string, uuid: string): Promise<any> {
+    async getCurrentVersion(uuid: string): Promise<any> {
         const cursor = await this.db.query(aql` 
                 let originalKey = ${uuid}
-                let collection = ${collection}
                 FOR v IN Versions
-                FILTER (v.collection == collection && v.originalKey == originalKey)
+                FILTER (v.originalKey == originalKey)
                 RETURN v.currentKey
-                                                `)
+            `)
         return cursor.next();
     }
 }
