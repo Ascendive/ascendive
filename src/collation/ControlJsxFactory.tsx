@@ -43,7 +43,7 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
         let date: number = event.value != null ? event.value.getTime() : null;
         setData((prevData: any) => ({ ...prevData, [field.field]: { "value": date } }))
     }
-    let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value) : undefined;
+    let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value * 1000) : undefined;
     return (
         <DatePickerComponent
             id={field.field}
