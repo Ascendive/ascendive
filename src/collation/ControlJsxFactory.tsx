@@ -5,10 +5,8 @@ import { NumericTextBoxComponent, TextBoxComponent } from '@syncfusion/ej2-react
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleTextBoxChange = (event: any) => {
-        setData((prevData: any) =>
-            ({ ...prevData, [field.field]: { "value": event.value } }))
-    }
+    const handleTextBoxChange = (event: any) => { }
+
     return (
         <>
             <TextBoxComponent
@@ -21,9 +19,7 @@ export function TextBoxComponentFactory(field: any, data: any, setData: React.Di
     )
 }
 export function DropDownListComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleDropDownChange = (event: any) =>
-        setData((prevData: any) =>
-            ({ ...prevData, [field.field]: { "value": event.value } }))
+    const handleDropDownChange = (event: any) => { }
 
     if (!field.controlOptions.dataSource.includes(data.value)) data.value = null
 
@@ -39,10 +35,8 @@ export function DropDownListComponentFactory(field: any, data: any, setData: Rea
     )
 }
 export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleDatePickerChange = (event: any) => {
-        let date: number = event.value != null ? event.value.getTime() : null;
-        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": date } }))
-    }
+    const handleDatePickerChange = (event: any) => { }
+
     let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value * 1000) : undefined;
     return (
         <DatePickerComponent
@@ -61,11 +55,10 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
    step: This field control option supplies the default step in the displayed number.
    range: This field control option is an object composed of 2 numbers: min and max.
 */
-export function NumericTextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
+export function NumericTextBoxComponentFactory(field: any, data: any[], setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
 
-    const handleNumericTextBoxChange = (event: any) => {
-        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": event.value } }))
-    }
+    const handleNumericTextBoxChange = (event: any): void => { }
+
     let component;
     if (field.controlOptions === undefined || field.controlOptions === null) {
         component = <NumericTextBoxComponent
@@ -105,9 +98,8 @@ export function NumericTextBoxComponentFactory(field: any, data: any, setData: R
     return (<> {component} </>)
 }
 export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleToggleSwitchButtonChange = (event: any) => {
-        setData((prevData: any) => ({ ...prevData, [field.field]: { "value": event.checked } }))
-    }
+    const handleToggleSwitchButtonChange = (event: any) => { }
+
     return (
         <>
             <label className="e-label-top" htmlFor={field.field}>{field.title}</label>
