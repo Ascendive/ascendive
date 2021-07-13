@@ -35,9 +35,11 @@ export function DropDownListComponentFactory(field: any, data: any, setData: Rea
     )
 }
 export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleDatePickerChange = (event: any) => { }
-
-    let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value * 1000) : undefined;
+    const handleDatePickerChange = (event: any) => { console.log(event) }
+    const dateString = data[index].value
+    let initialDate = (dateString != null && dateString !== undefined && dateString !== '')
+        ? new Date(data[index].value * 1000)
+        : undefined;
     console.log(initialDate)
     console.log(data[index].value)
     return (
