@@ -66,7 +66,10 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
 */
 export function NumericTextBoxComponentFactory(field: any, data: any[], setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
 
-    const handleNumericTextBoxChange = (event: any): void => { }
+    const handleNumericTextBoxChange = (event: any): void => {
+        data[index].value = event.value
+        setData(data)
+    }
 
     let component;
     if (field.controlOptions === undefined || field.controlOptions === null) {

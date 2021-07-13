@@ -45,7 +45,6 @@ export function Collation(props: any): JSX.Element {
       setCollationFields(fields);
       setCollationType(collationType);
       setForm(form);
-      console.log(fields)
       setWegood(!wegood);
 
     }
@@ -54,13 +53,13 @@ export function Collation(props: any): JSX.Element {
   const [readOnly, setReadOnly] = useState(true);
   const handleSave = () => {
     toggleReadOnly();
+    console.log(collationFields)
   };
   const toggleReadOnly = () => setReadOnly(!readOnly);
 
   if (wegood)
     return (
       <>
-        {console.log(collationFields)}
         <h1>{collationType.title}</h1>
         {collationFields.map((field: any, i: number, array: any): JSX.Element => {
           return (
