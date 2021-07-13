@@ -15,8 +15,7 @@ import { FormRepository } from "../arangodb/repository/FormRepository";
 //TODO add a flag to pass down the state of the edit function
 //so that we can set the controls to be read only.
 export function Collation(props: any): JSX.Element {
-  const [fieldData, setFieldData] = useState<any | null>(null);
-  const [collationData, setCollationData] = useState();
+  const [collationFields, setCollationFields] = useState<any | null>(null);
   const [collationType, setCollationType] = useState({ title: "" });
   const [form, setForm] = useState();
   const [wegood, setWegood] = useState(false);
@@ -27,10 +26,14 @@ export function Collation(props: any): JSX.Element {
       const collationRepo = new CollationRepository(props.db);
       const collationTypeRepo = new CollationTypeRepository(props.db);
       const formRepo = new FormRepository(props.db);
-      //Db queries
-      const fields = await fieldRepo.getFieldsByCollationUuid(uuid);
+
+      //We need this to get the collationtype key to get the forms
       const collationData =
         await collationRepo.getActiveCollationByCollationUuid(uuid);
+
+      //This is the data that we are using to render the form.
+      const fields = await collationRepo.getCollationFields(uuid);
+
       const collationType =
         await collationTypeRepo.getActiveCollationTypeByCollationTypeUuid(
           collationData.reference.collationType.key
@@ -39,9 +42,8 @@ export function Collation(props: any): JSX.Element {
         collationData.reference.collationType.key
       );
 
-      setFieldData(fields);
+      setCollationFields(fields);
       setCollationType(collationType);
-      setCollationData(collationData);
       setForm(form);
       setWegood(!wegood);
 
@@ -61,19 +63,19 @@ export function Collation(props: any): JSX.Element {
     return (
       <>
         <h1>{collationType.title}</h1>
-        {fieldData.map((field: any, i: number, array: any): JSX.Element => {
+        {collationFields.map((field: any, i: number, array: any): JSX.Element => {
           return (
-              <>
-              <p>{field.field}</p>
-            <Field
-              field={field}
-              control={field.control.type}
-              index={i}
-              data={array}
-              setData={setFieldData}
-              readOnly={readOnly}
-            />
-              </>
+            <>
+              <p>{field.default.label}</p>
+              <Field
+                field={field}
+                control={field.control.type}
+                index={i}
+                data={array}
+                setData={setCollationFields}
+                readOnly={readOnly}
+              />
+            </>
           );
         })}
         <ButtonComponent onClick={handleSave}>
