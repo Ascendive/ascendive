@@ -45,11 +45,9 @@ export function Collation(props: any): JSX.Element {
       setCollationFields(fields);
       setCollationType(collationType);
       setForm(form);
+      console.log(fields)
       setWegood(!wegood);
 
-      /* console.log(JSON.stringify(fields)); */
-      /* console.log(collationType); */
-      /* console.log(collationData); */
     }
     dbPull(props.collationKey);
   }, []);
@@ -62,6 +60,7 @@ export function Collation(props: any): JSX.Element {
   if (wegood)
     return (
       <>
+        {console.log(collationFields)}
         <h1>{collationType.title}</h1>
         {collationFields.map((field: any, i: number, array: any): JSX.Element => {
           return (

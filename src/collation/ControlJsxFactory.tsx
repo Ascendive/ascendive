@@ -38,6 +38,8 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
     const handleDatePickerChange = (event: any) => { }
 
     let initialDate = (data[index].value != null && data[index].value !== undefined) ? new Date(data[index].value * 1000) : undefined;
+    console.log(initialDate)
+    console.log(data[index].value)
     return (
         <DatePickerComponent
             id={field.field}
