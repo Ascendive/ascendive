@@ -132,14 +132,24 @@ function Field(props: any): JSX.Element {
         props.readOnly,
         props.index
       );
-    /* case "TextBox":
-*   return controls.TextBoxComponentFactory(
-*     props.field,
-*     props.data,
-*     props.setData,
-*     props.readOnly,
-*     props.index
-*   ); */
+    case "TextBox":
+      return controls.TextBoxComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index,
+        false
+      );
+    case "MultiLineTextBox":
+      return controls.TextBoxComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index,
+        true
+      );
     case "ToggleSwitch":
       return controls.ToggleSwitchButtonComponentFactory(
         props.field,

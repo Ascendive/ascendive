@@ -4,16 +4,19 @@ import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { NumericTextBoxComponent, TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
-export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleTextBoxChange = (event: any) => { }
+export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number, multiline: boolean): JSX.Element {
+    const handleTextBoxChange = (event: any) => {
+        data[index].value = event.value;
+        setData(data);
+    }
 
     return (
         <>
             <TextBoxComponent
                 placeholder={field.title}
                 floatLabelType="Auto"
-                multiline={field.controlOptions.multiline}
                 value={data[index].value}
+                multiline={multiline}
                 change={e => handleTextBoxChange(e)} />
         </>
     )
