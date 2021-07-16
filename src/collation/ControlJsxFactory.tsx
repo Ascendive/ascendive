@@ -119,6 +119,9 @@ export function ToggleSwitchButtonComponentFactory(field: any, data: any, setDat
         setData(data)
     }
 
+    //Just in case the value is a string instead of a boolean
+    if (data[index].value === "true") data[index].value = true;
+    if (data[index].value === "false") data[index].value = false;
 
     return (
         <>
