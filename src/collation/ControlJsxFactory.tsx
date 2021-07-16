@@ -13,7 +13,7 @@ export function TextBoxComponentFactory(field: any, data: any, setData: React.Di
     return (
         <>
             <TextBoxComponent
-                placeholder={field.title}
+                placeholder={field.default.label}
                 floatLabelType="Auto"
                 value={data[index].value}
                 multiline={multiline}
@@ -57,6 +57,7 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
             change={handleDatePickerChange}
             format={field.controlOptions === undefined ? "yyyy-MM-dd" : field.controlOptions.userDateFormat}
             floatLabelType="Auto"
+            placeholder={field.default.label}
         />
     )
 }
@@ -80,14 +81,14 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
             id={field.field}
             value={data[index].value}
             floatLabelType="Auto"
-            placeholder={field.title}
+            placeholder={field.default.label}
             change={handleNumericTextBoxChange} />
     } else if ("step" in field.controlOptions && "range" in field.controlOptions) {
         component = <NumericTextBoxComponent
             id={field.field}
             value={data[index].value}
             floatLabelType="Auto"
-            placeholder={field.title}
+            placeholder={field.default.label}
             change={handleNumericTextBoxChange}
             step={field.controlOptions.step}
             min={field.controlOptions.range.min}
@@ -97,7 +98,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
             id={field.field}
             value={data[index].value}
             floatLabelType="Auto"
-            placeholder={field.title}
+            placeholder={field.default.label}
             change={handleNumericTextBoxChange}
             step={field.controlOptions.step} />
     } else if ("range" in field.controlOptions) {
@@ -105,7 +106,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
             id={field.field}
             value={data[index].value}
             floatLabelType="Auto"
-            placeholder={field.title}
+            placeholder={field.default.label}
             change={handleNumericTextBoxChange}
             min={field.controlOptions.range.min}
             max={field.controlOptions.range.max} />
