@@ -114,7 +114,11 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
     return (<> {component} </>)
 }
 export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleToggleSwitchButtonChange = (event: any) => { }
+    const handleToggleSwitchButtonChange = (event: any) => {
+        data[index].value = !data[index].value
+        setData(data)
+    }
+
 
     return (
         <>
