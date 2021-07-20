@@ -158,14 +158,14 @@ function Field(props: any): JSX.Element {
         props.readOnly,
         props.index
       );
-    /* case "DropdownList":
-*   return controls.DropDownListComponentFactory(
-*     props.field,
-*     props.data,
-*     props.setData,
-*     props.readOnly,
-*     props.index
-*   ); */
+    case "DropdownList":
+      return controls.DropDownListComponentFactory(
+        props.field,
+        props.data,
+        props.setData,
+        props.readOnly,
+        props.index
+      );
     default:
       return <></>;
   }
