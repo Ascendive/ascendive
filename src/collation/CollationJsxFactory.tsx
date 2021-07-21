@@ -18,7 +18,7 @@ export function Collation(props: any): JSX.Element {
   const [collationFields, setCollationFields] = useState<any | null>(null);
   const [collationType, setCollationType] = useState({ title: "" });
   const [form, setForm] = useState();
-  const [wegood, setWegood] = useState(false);
+  const [dataPullComplete, setDataPullComplete] = useState(false);
   useEffect(() => {
     async function dbPull(uuid: String): Promise<void> {
       // Repo setup
@@ -45,11 +45,12 @@ export function Collation(props: any): JSX.Element {
       setCollationFields(fields);
       setCollationType(collationType);
       setForm(form);
-      setWegood(!wegood);
+      setDataPullComplete(!dataPullComplete);
 
     }
     dbPull(props.collationKey);
-  }, []);
+  }, []); //End useEffect
+
   const [readOnly, setReadOnly] = useState(true);
   const handleSave = () => {
     toggleReadOnly();
@@ -57,7 +58,7 @@ export function Collation(props: any): JSX.Element {
   };
   const toggleReadOnly = () => setReadOnly(!readOnly);
 
-  if (wegood)
+  if (dataPullComplete)
     return (
       <>
         <h1>{collationType.title}</h1>
