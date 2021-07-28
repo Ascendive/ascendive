@@ -14,7 +14,9 @@ export class CollationRepository {
         const cursor = await this.db.query(aql`FOR c in Collations filter (c.version.key == ${uuid} && c.version.isCurrent) return c`) as ArrayCursor<any>
         return cursor.next()
     }
-    async getCollationFields(uuid: String): Promise<any> {
+
+
+    async getFieldsByCollationUuid(uuid: String): Promise<any> {
         this.db.collection("Fields")
         const cursor = await this.db.query(aql`
             Let collationKey = ${uuid}
@@ -28,8 +30,36 @@ export class CollationRepository {
                         FILTER (cf.key == ctf.key)
                         FOR f IN Fields
                             FILTER (f.version.key == ctf.key && f.control.isActive && f.version.isCurrent)
-                            RETURN {"field":ctf.title, "value":cf.value, "default":f.default, "control":f.control}
-                            `) as ArrayCursor<any>
+                            RETURN {"field":ctf.title, "value":cf.value, "default":f.default, "control":f.control}                `) as ArrayCursor<any>
+        return cursor.all();
+    }
+    async getCollationFieldsByUuid2(uuid: String): Promise<any> {
+        this.db.collection("Fields")
+        const cursor = await this.db.query(aql`
+            LET collationKey = ${uuid}
+            FOR c IN Collations
+            FILTER (c.version.key == collationKey) SORT c.version.versionNumber DESC LIMIT 1
+                FOR ct IN CollationTypes
+                    FILTER (ct.version.key == c.reference.collationType.key && ct.reference.playbook.key == c.reference.playbook.key) SORT ct.version.versionNumber DESC LIMIT 1
+                    FOR ctf in ct.field[*]
+                    FILTER (ctf.isActive)
+                    FOR cf in c.field[*]
+                        FILTER (cf.key == ctf.key)
+                        FOR f IN Fields
+                            FILTER (f.version.key == ctf.key && f.control.isActive && f.version.isCurrent)
+                            RETURN {"language":f.default.language,
+                                    "type":f.default.type,
+                                    "field":f.default.label,
+                                    "helpText":f.default.helpText,
+                                    "value":cf.value,
+                                    "control":f.control.type,
+                                    "attributes":f.control.attributes,
+                                    "isRequired":f.control.isRequired,
+                                    "isUnique":f.control.isUnique,
+                                    "hasSecurity":f.control.hasSecurity,
+                                    "css":f.control.css,
+                                    "javaScript":f.control.javaScript}
+            `) as ArrayCursor<any>
         return cursor.all();
     }
     async getCollationJourney(uuid: String): Promise<any> {
@@ -49,7 +79,7 @@ export class CollationRepository {
                         RETURN {"From State":t.from.title, "To State":t.to.title, "Initiated By": u.title, "Date": DATE_ISO8601(TO_NUMBER(j.version.timeStamp*1000)), "Value":j.measure.value}
         `) as ArrayCursor<any>
         return cursor.next()
-    }  
+    }
     async getCollationVersions(uuid: String): Promise<any> {
         this.db.collection("Collations")
         const cursor = await this.db.query(aql`
@@ -90,5 +120,5 @@ export class CollationRepository {
                         } IN Collation
         `) as ArrayCursor<any>
         return cursor.next()
-    } 
+    }
 }
