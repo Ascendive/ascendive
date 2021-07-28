@@ -19,6 +19,8 @@ export function Collation(props: any): JSX.Element {
   const [collationType, setCollationType] = useState({ title: "" });
   const [form, setForm] = useState();
   const [dataPullComplete, setDataPullComplete] = useState(false);
+  const [collationHasBeenEdited, setCollationHasBeenEdited] = useState(false);
+  // Initial data query effect
   useEffect(() => {
     async function dbPull(uuid: String): Promise<void> {
       // Repo setup
@@ -32,7 +34,7 @@ export function Collation(props: any): JSX.Element {
         await collationRepo.getActiveCollationByCollationUuid(uuid);
 
       //This is the data that we are using to render the form.
-      const fields = await collationRepo.getCollationFields(uuid);
+      const fields = await collationRepo.getFieldsByCollationUuid(uuid);
 
       const collationType =
         await collationTypeRepo.getActiveCollationTypeByCollationTypeUuid(
@@ -50,13 +52,16 @@ export function Collation(props: any): JSX.Element {
     }
     dbPull(props.collationKey);
   }, []); //End useEffect
+  // Effect that runs once the collation has been edited.
+  useEffect(() => {
+    if (collationFields) console.log("edited")
+    setCollationHasBeenEdited(true);
+  }, [JSON.stringify(collationFields),]);
 
-  const [readOnly, setReadOnly] = useState(true);
-  const handleSave = () => {
-    toggleReadOnly();
-    console.log(collationFields)
+  const handleMutation = () => {
+    setCollationHasBeenEdited(false);
+    /* console.log(collationFields) */
   };
-  const toggleReadOnly = () => setReadOnly(!readOnly);
 
   if (dataPullComplete)
     return (
@@ -65,55 +70,27 @@ export function Collation(props: any): JSX.Element {
         {collationFields.map((field: any, i: number, array: any): JSX.Element => {
           return (
             <>
-              <p>{field.default.label}</p>
+              { // TODO figure out labels for the rest of the controls
+                  /* <p>{field.default.label}</p> */}
               <Field
                 field={field}
                 control={field.control.type}
                 index={i}
                 data={array}
                 setData={setCollationFields}
-                readOnly={readOnly}
+                readOnly={collationHasBeenEdited}
               />
             </>
           );
         })}
-        <ButtonComponent onClick={handleSave}>
-          {readOnly ? "Edit" : "Save"}
+        <ButtonComponent onClick={handleMutation}>
+          {collationHasBeenEdited ? "Save" : "Edit"}
         </ButtonComponent>
       </>
     );
   return <></>;
 }
 
-function Form(props: any): JSX.Element {
-  return (
-    <>
-      <h2>{props.form.title}</h2>
-      {/* {
-          props.form.fieldArray.map(
-          (field: any) => {
-          return <Field
-          field={field}
-          data={props.data[field.id]}
-          setData={props.setData}
-          readOnly={props.readOnly} />
-          }
-          )
-          } */}
-      {props.fields.map((field: any, index: number, array: any[]) => {
-        return (
-          <Field
-            index={index}
-            control={field.control.type}
-            data={array}
-            readOnly={props.readOnly}
-            setData={props.setData}
-          />
-        );
-      })}
-    </>
-  );
-}
 
 function Field(props: any): JSX.Element {
   switch (props.control) {
@@ -159,14 +136,14 @@ function Field(props: any): JSX.Element {
         props.readOnly,
         props.index
       );
-    case "DropdownList":
-      return controls.DropDownListComponentFactory(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index
-      );
+    /* case "DropdownList":
+*   return controls.DropDownListComponentFactory(
+*     props.field,
+*     props.data,
+*     props.setData,
+*     props.readOnly,
+*     props.index
+*   ); */
     default:
       return <></>;
   }

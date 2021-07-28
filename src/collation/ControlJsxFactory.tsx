@@ -3,6 +3,7 @@ import { SwitchComponent } from '@syncfusion/ej2-react-buttons';
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { NumericTextBoxComponent, TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { cloneDeep } from 'lodash'
 
 export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number, multiline: boolean): JSX.Element {
     const handleTextBoxChange = (event: any) => {
@@ -38,11 +39,13 @@ export function DropDownListComponentFactory(field: any, data: any, setData: Rea
     )
 }
 export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
-    const handleDatePickerChange = (event: any) => {
+    const handleDatePickerChange = (event: any): void => {
         if (event.value != null && event.value !== undefined) {
             let dateNum = event.value.getTime() / 1000
             data[index].value = dateNum.toString()
-            setData(data)
+            const newData = cloneDeep(data)
+            setData(newData)
+
         }
     }
 
@@ -74,7 +77,8 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
 
     const handleNumericTextBoxChange = (event: any): void => {
         data[index].value = event.value
-        setData(data)
+        const newData = cloneDeep(data)
+        setData(newData)
     }
 
     let component;
@@ -118,7 +122,8 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
 export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleToggleSwitchButtonChange = (event: any) => {
         data[index].value = !data[index].value
-        setData(data)
+        const newData = cloneDeep(data)
+        setData(newData)
     }
 
     //Just in case the value is a string instead of a boolean
