@@ -5,7 +5,7 @@ import { NumericTextBoxComponent, TextBoxComponent } from '@syncfusion/ej2-react
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { cloneDeep } from 'lodash'
 
-export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number, multiline: boolean): JSX.Element {
+export function TextBox(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number, multiline: boolean): JSX.Element {
     const handleTextBoxChange = (event: any) => {
         data[index].value = event.value;
         setData(cloneDeep(data));
@@ -22,7 +22,7 @@ export function TextBoxComponentFactory(field: any, data: any, setData: React.Di
         </>
     )
 }
-export function DropDownListComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
+export function DropDownList(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleDropDownChange = (event: any) => { }
 
     if (!field.controlOptions.dataSource.includes(data.value)) data.value = null
@@ -38,7 +38,7 @@ export function DropDownListComponentFactory(field: any, data: any, setData: Rea
             disabled={true} />
     )
 }
-export function DatePickerComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
+export function DatePicker(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleDatePickerChange = (event: any): void => {
         if (event.value != null && event.value !== undefined) {
             let dateNum = event.value.getTime() / 1000
@@ -72,7 +72,7 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
    step: This field control option supplies the default step in the displayed number.
    range: This field control option is an object composed of 2 numbers: min and max.
 */
-export function NumericTextBoxComponentFactory(field: any, data: any[], setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
+export function NumericTextBox(field: any, data: any[], setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
 
     const handleNumericTextBoxChange = (event: any): void => {
         data[index].value = event.value
@@ -117,7 +117,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
     }
     return (<> {component} </>)
 }
-export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
+export function ToggleSwitchButton(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleToggleSwitchButtonChange = (event: any) => {
         data[index].value = !data[index].value
         setData(cloneDeep(data));

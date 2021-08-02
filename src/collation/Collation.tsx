@@ -96,7 +96,7 @@ export function Collation(props: any): JSX.Element {
 function Field(props: any): JSX.Element {
   switch (props.control) {
     case "DatePicker":
-      return controls.DatePickerComponentFactory(
+      return controls.DatePicker(
         props.field,
         props.data,
         props.setData,
@@ -104,7 +104,7 @@ function Field(props: any): JSX.Element {
         props.index
       );
     case "NumericTextBox":
-      return controls.NumericTextBoxComponentFactory(
+      return controls.NumericTextBox(
         props.field,
         props.data,
         props.setData,
@@ -112,7 +112,7 @@ function Field(props: any): JSX.Element {
         props.index
       );
     case "TextBox":
-      return controls.TextBoxComponentFactory(
+      return controls.TextBox(
         props.field,
         props.data,
         props.setData,
@@ -121,7 +121,7 @@ function Field(props: any): JSX.Element {
         false
       );
     case "MultiLineTextBox":
-      return controls.TextBoxComponentFactory(
+      return controls.TextBox(
         props.field,
         props.data,
         props.setData,
@@ -130,7 +130,7 @@ function Field(props: any): JSX.Element {
         true
       );
     case "ToggleSwitch":
-      return controls.ToggleSwitchButtonComponentFactory(
+      return controls.ToggleSwitchButton(
         props.field,
         props.data,
         props.setData,
@@ -138,7 +138,7 @@ function Field(props: any): JSX.Element {
         props.index
       );
     /* case "DropdownList":
-*   return controls.DropDownListComponentFactory(
+*   return controls.DropDownList(
 *     props.field,
 *     props.data,
 *     props.setData,
