@@ -1,5 +1,4 @@
 import React from "react";
-import * as controls from "./Controls";
 import { useState } from "react";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { useEffect } from "react";
@@ -7,6 +6,7 @@ import { FieldRepository } from "../arangodb/repository/FieldRepository";
 import { CollationRepository } from "../arangodb/repository/CollationRepository";
 import { CollationTypeRepository } from "../arangodb/repository/CollationTypeRepository";
 import { FormRepository } from "../arangodb/repository/FormRepository";
+import { Field } from "./Field";
 /** @Author Cader Hancock
    The CollationJsxFactory decomposes the CollationPrototype assembled by the
    CollationDecorator. It reduces each CollationPrototype into it's subsequent
@@ -93,59 +93,4 @@ export function Collation(props: any): JSX.Element {
 }
 
 
-function Field(props: any): JSX.Element {
-  switch (props.control) {
-    case "DatePicker":
-      return controls.DatePicker(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index
-      );
-    case "NumericTextBox":
-      return controls.NumericTextBox(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index
-      );
-    case "TextBox":
-      return controls.TextBox(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index,
-        false
-      );
-    case "MultiLineTextBox":
-      return controls.TextBox(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index,
-        true
-      );
-    case "ToggleSwitch":
-      return controls.ToggleSwitchButton(
-        props.field,
-        props.data,
-        props.setData,
-        props.readOnly,
-        props.index
-      );
-    /* case "DropdownList":
-*   return controls.DropDownList(
-*     props.field,
-*     props.data,
-*     props.setData,
-*     props.readOnly,
-*     props.index
-*   ); */
-    default:
-      return <></>;
-  }
-}
+
