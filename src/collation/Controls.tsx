@@ -8,7 +8,7 @@ import { cloneDeep } from 'lodash'
 export function TextBoxComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number, multiline: boolean): JSX.Element {
     const handleTextBoxChange = (event: any) => {
         data[index].value = event.value;
-        setData(data);
+        setData(cloneDeep(data));
     }
 
     return (
@@ -43,8 +43,7 @@ export function DatePickerComponentFactory(field: any, data: any, setData: React
         if (event.value != null && event.value !== undefined) {
             let dateNum = event.value.getTime() / 1000
             data[index].value = dateNum.toString()
-            const newData = cloneDeep(data)
-            setData(newData)
+            setData(cloneDeep(data))
 
         }
     }
@@ -77,8 +76,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
 
     const handleNumericTextBoxChange = (event: any): void => {
         data[index].value = event.value
-        const newData = cloneDeep(data)
-        setData(newData)
+        setData(cloneDeep(data));
     }
 
     let component;
@@ -122,8 +120,7 @@ export function NumericTextBoxComponentFactory(field: any, data: any[], setData:
 export function ToggleSwitchButtonComponentFactory(field: any, data: any, setData: React.Dispatch<any>, readOnly: boolean, index: number): JSX.Element {
     const handleToggleSwitchButtonChange = (event: any) => {
         data[index].value = !data[index].value
-        const newData = cloneDeep(data)
-        setData(newData)
+        setData(cloneDeep(data));
     }
 
     //Just in case the value is a string instead of a boolean

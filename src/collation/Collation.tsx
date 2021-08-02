@@ -1,5 +1,5 @@
 import React from "react";
-import * as controls from "./ControlJsxFactory";
+import * as controls from "./Controls";
 import { useState } from "react";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { useEffect } from "react";
@@ -51,16 +51,17 @@ export function Collation(props: any): JSX.Element {
 
     }
     dbPull(props.collationKey);
-  }, []); //End useEffect
+  }, []); //End data query useEffect
+
   // Effect that runs once the collation has been edited.
   useEffect(() => {
     if (collationFields) console.log("edited")
     setCollationHasBeenEdited(true);
-  }, [JSON.stringify(collationFields),]);
+  }, [collationFields]);
 
   const handleMutation = () => {
     setCollationHasBeenEdited(false);
-    /* console.log(collationFields) */
+    console.log(collationFields)
   };
 
   if (dataPullComplete)
